@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Encriptador</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        
+        <div class="logo">
+            <img src="logo.png" alt="Logo de Alura">
+        </div>
+
+        <textarea cols="70" rows="10" id="aencriptar" class="ingreso" required placeholder="Ingrese el texto aqui"></textarea>
+
+        <div class="botones">
+            <button class="botone"><h1 class="textob1">Encriptar</h1></button>
+            <button class="botond"><h1 class="textob2">Desencriptar</h1></button>
+        </div>
+
+        <div class="cuadroalerta">
+            <p class="alerta">&#10071; Solo letras minúsculas y sin acentos</p>
+        </div>
+
+        <div class="cuadro">
+            <div class="muneco" id="esconder">
+                <img src="Muñeco.png" alt="Dibujo en cuadro">
+                <img src="Frame 5.png" alt="Texto en cuadro">
+            </div>
+                <p id="encriptado"></p>
+            <div class="copiarte">
+                <button class="copytext" id="aparecer"><h1 class="textob3">Copiar</h1></button>
+            </div>
+        </div>
+
+        <script>
+
+            var textarea = document.querySelector("textarea");
+            var array = [];
+            var texto ="";
+            var cadena;
+            var copiartexto;
+            var vocales = ["e","i","a","o","u"];
+            var llaves = ["enter","imes","ai","ober","ufat"];
+            textarea.focus();
+
+            function encriptar () {
+                for(var i of textarea.value) {
+                array.push(i);
+                }
+            for (var posicion=0;posicion<array.length;posicion++) {
+                if (array[posicion]=="e") {
+                    array[posicion]="enter";
+                }
+                if (array[posicion]=="i") {
+                    array[posicion]="imes";
+                }
+                if (array[posicion]=="a") {
+                    array[posicion]="ai";
+                }
+                if (array[posicion]=="o") {
+                    array[posicion]="ober";
+                }
+                if (array[posicion]=="u") {
+                    array[posicion]="ufat";
+                }
+                texto = texto + array[posicion]
+                }
+                document.getElementById("encriptado").innerHTML = texto;
+                document.getElementById("aparecer").style.display = "flex";
+                document.getElementById("esconder").style.display = "none";
+                texto = "";
+                array = [];
+            }
+
+            function desencriptar () {
+                cadena = textarea.value;
+                for (var posicion=0;posicion<vocales.length;posicion++) {
+                    cadena = cadena.replaceAll(llaves[posicion],vocales[posicion]);
+                }  
+                document.getElementById("encriptado").innerHTML = cadena;
+                document.getElementById("aparecer").style.display = "flex";
+                document.getElementById("esconder").style.display = "none";  
+            }
+
+            function copiar() {
+                copiartexto = document.querySelector("#encriptado").textContent;
+                navigator.clipboard.writeText(copiartexto);
+                textarea.value = ""; // vuelve el valor del cuadro textarea de html a vacio.
+                texto = "";
+                array = [];
+                textarea.focus();
+            }
+
+            var buttonc = document.querySelector(".copytext")
+            buttonc.onclick = copiar;
+
+            var buttone = document.querySelector(".botone")
+            buttone.onclick = encriptar;
+
+            var buttond = document.querySelector(".botond")
+            buttond.onclick = desencriptar;
+
+        </script>
+
+    </body>
+
+    <footer>
+        <p class="membrete">Nicolás Allende - Estudiante de ONE</p>
+    </footer>
+
+</html>
